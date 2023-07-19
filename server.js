@@ -215,23 +215,23 @@ function addEmployee() {
                     {
                         type: "input",
                         name: "first_name",
-                        message: "Enter the employee's first name:",
+                        message: "What is employee's first name:",
                     },
                     {
                         type: "input",
                         name: "last_name",
-                        message: "Enter the employee's last name:",
+                        message: "What is employee's last name:",
                     },
                     {
                         type: "list",
                         name: "role_id",
-                        message: "Select the employee's role:",
+                        message: "What is employee's role:",
                         choices: roles,
                     },
                     {
                         type: "list",
                         name: "manager_id",
-                        message: "Select the employee's manager:",
+                        message: "What is employee's manager:",
                         choices: [
                             { name: "None", value: null },
                             ...employees,
@@ -312,7 +312,7 @@ function addManager() {
                     connection.query(query, [manager_id, employee_id, department_id], (err, res) => {
                         if (err) throw err;
                         console.log(
-                            `Added manager to employee successfully!`
+                            `Added manager successfully`
                         );
                         start();
                     });
@@ -332,7 +332,7 @@ function updateEmployeeRole() {
                     {
                         type: "list",
                         name: "employee_id",
-                        message: "Select the employee to update:",
+                        message: "What employee are you update:",
                         choices: employees.map(({ id, first_name, last_name }) => ({
                             name: `${first_name} ${last_name}`,
                             value: id,
@@ -341,7 +341,7 @@ function updateEmployeeRole() {
                     {
                         type: "list",
                         name: "role_id",
-                        message: "Select the new role:",
+                        message: "What is thier new role:",
                         choices: roles.map(({ id, title }) => ({
                             name: title,
                             value: id,
@@ -353,7 +353,7 @@ function updateEmployeeRole() {
                     connection.query(query, [role_id, employee_id], (err, res) => {
                         if (err) throw err;
                         console.log(
-                            `Updated employee's role successfully!`
+                            `Updated employee successfully`
                         );
                         start();
                     });
