@@ -72,7 +72,7 @@ function start() {
                     viewEmployeesByDepartment();
                     break;
                 case "Exit":
-                    connection.end();
+                    server.end();
                     console.log("Goodbye!");
                     break;
             }
