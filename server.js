@@ -149,10 +149,10 @@ function addDepartment() {
             message: "Enter the name of the new department:",
         })
         .then(({ name }) => {
-            const query = `INSERT INTO departments (department_name) VALUES ("${name}")`;
+            const query = `INSERT INTO departments (department_name) VALUES ("${answer.name}")`;
             server.query(query, (err, res) => {
                 if (err) throw err;
-                console.log(`Added department ${name} to the database!`);
+                console.log(`Added department ${answer.name} to the database!`);
                 start();
             });
         });
