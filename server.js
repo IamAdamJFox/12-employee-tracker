@@ -81,8 +81,10 @@ function start() {
 
 // View all departments
 function viewAllDepartments() {
+    console.log("inside viewALLDepartments")
+
     const query = "SELECT * FROM departments";
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
         start();
@@ -104,7 +106,7 @@ function viewAllRoles() {
         ON 
             roles.department_id = departments.id
     `;
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
         start();
@@ -131,7 +133,7 @@ function viewAllEmployees() {
         LEFT JOIN 
             employee m ON e.manager_id = m.id;
     `;
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
         start();
@@ -148,7 +150,7 @@ function addDepartment() {
         })
         .then(({ name }) => {
             const query = `INSERT INTO departments (department_name) VALUES ("${name}")`;
-            connection.query(query, (err, res) => {
+            server.query(query, (err, res) => {
                 if (err) throw err;
                 console.log(`Added department ${name} to the database!`);
                 start();
@@ -159,7 +161,7 @@ function addDepartment() {
 // Add a role
 function addRole() {
     const query = "SELECT * FROM departments";
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
         const choices = res.map(({ id, department_name }) => ({
             name: department_name,
@@ -188,7 +190,7 @@ function addRole() {
                 const query =
                     "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
                 const values = [title, salary, department_id];
-                connection.query(query, values, (err, res) => {
+                server.query(query, values, (err, res) => {
                     if (err) throw err;
                     console.log(
                         `Added role ${title} with salary ${salary} to the database!`
@@ -201,14 +203,14 @@ function addRole() {
 
 // Add an employee
 function addEmployee() {
-    connection.query("SELECT * FROM roles", (error, results) => {
+    server.query("SELECT * FROM roles", (error, results) => {
         if (error) throw error;
         const roles = results.map(({ id, title }) => ({
             name: title,
             value: id,
         }));
 
-        connection.query("SELECT * FROM employee", (error, results) => {
+        server.query("SELECT * FROM employee", (error, results) => {
             if (error) throw error;
             const employees = results.map(({ id, first_name, last_name }) => ({
                 name: `${first_name} ${last_name}`,
@@ -251,7 +253,7 @@ function addEmployee() {
                             (?, ?, ?, ?)
                     `;
                     const values = [first_name, last_name, role_id, manager_id];
-                    connection.query(query, values, (err, res) => {
+                    server.query(query, values, (err, res) => {
                         if (err) throw err;
                         console.log("Employee added successfully");
                         start();
@@ -263,9 +265,9 @@ function addEmployee() {
 
 // Add a manager
 function addManager() {
-    connection.query("SELECT * FROM departments", (err, departments) => {
+    server.query("SELECT * FROM departments", (err, departments) => {
         if (err) throw err;
-        connection.query("SELECT * FROM employee", (err, employees) => {
+        server.query("SELECT * FROM employee", (err, employees) => {
             if (err) throw err;
             inquirer
                 .prompt([
@@ -314,7 +316,7 @@ function addManager() {
                                     department_id = ?
                             )
                     `;
-                    connection.query(query, [manager_id, employee_id, department_id], (err, res) => {
+                    server.query(query, [manager_id, employee_id, department_id], (err, res) => {
                         if (err) throw err;
                         console.log(
                             `Added manager successfully`
@@ -328,9 +330,9 @@ function addManager() {
 
 // Update an employee's role
 function updateEmployeeRole() {
-    connection.query("SELECT * FROM employee", (err, employees) => {
+    server.query("SELECT * FROM employee", (err, employees) => {
         if (err) throw err;
-        connection.query("SELECT * FROM roles", (err, roles) => {
+        server.query("SELECT * FROM roles", (err, roles) => {
             if (err) throw err;
             inquirer
                 .prompt([
@@ -355,7 +357,7 @@ function updateEmployeeRole() {
                 ])
                 .then(({ employee_id, role_id }) => {
                     const query = "UPDATE employee SET role_id = ? WHERE id = ?";
-                    connection.query(query, [role_id, employee_id], (err, res) => {
+                    server.query(query, [role_id, employee_id], (err, res) => {
                         if (err) throw err;
                         console.log(
                             `Updated employee successfully`
@@ -389,7 +391,7 @@ function viewEmployeesByManager() {
             e.first_name
     `;
 
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
 
         const employeesByManager = res.reduce((acc, cur) => {
@@ -432,7 +434,7 @@ function viewEmployeesByDepartment() {
             departments.department_name ASC
     `;
 
-    connection.query(query, (err, res) => {
+    server.query(query, (err, res) => {
         if (err) throw err;
         console.log("\nEmployees by department:");
         console.table(res);
