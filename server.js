@@ -64,3 +64,15 @@ async function init() {
     console.error('An error occurred:', error);
   }
 }
+
+function viewDepartments() {
+    const query = 'SELECT * FROM department';
+    server.query(query, (err, results) => {
+      if (err) {
+        console.error('An error occurred:', err);
+      } else {
+        console.table(results);
+      }
+      init();
+    });
+  }
