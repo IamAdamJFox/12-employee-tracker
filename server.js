@@ -88,7 +88,7 @@ function viewDepartments() {
       init();
     });
   }
-  
+
   function viewEmployees() {
     const query = 'SELECT employees.first_name, employees.last_name, roles.title FROM employees JOIN roles ON employees.role_id = roles.id';
     server.query(query, (err, results) => {
@@ -99,4 +99,21 @@ function viewDepartments() {
       }
       init();
     });
+  }
+
+  function addDepartment() {
+    inquirer
+      .prompt({
+        name: 'newDept',
+        type: 'input',
+        message: 'What is the name of the new department:',
+      })
+      .then((userResponse) => {
+        const query = `INSERT INTO departments (department_name) VALUES (?)`;
+        server.query(query, [userResponse.newDept], (err) => {
+          if (err) throw err;
+          console.log(`Department "${userResponse.newDept}" has been added.`);
+          init();
+        });
+      });
   }
