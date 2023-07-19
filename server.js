@@ -76,3 +76,27 @@ function viewDepartments() {
       init();
     });
   }
+
+  function viewRoles() {
+    const query = 'SELECT roles.title, roles.department_id, roles.salary, departments.department_name FROM roles JOIN departments ON roles.department_id = departments.id';
+    server.query(query, (err, results) => {
+      if (err) {
+        console.error('An error occurred:', err);
+      } else {
+        console.table(results);
+      }
+      init();
+    });
+  }
+  
+  function viewEmployees() {
+    const query = 'SELECT employees.first_name, employees.last_name, roles.title FROM employees JOIN roles ON employees.role_id = roles.id';
+    server.query(query, (err, results) => {
+      if (err) {
+        console.error('An error occurred:', err);
+      } else {
+        console.table(results);
+      }
+      init();
+    });
+  }
