@@ -103,7 +103,7 @@ function viewAllRoles() {
         FROM 
             roles 
         JOIN 
-            departments 
+            department 
         ON 
             roles.department_id = departments.id
     `;
@@ -150,7 +150,7 @@ function addDepartment() {
             message: "Enter the name of the new department:",
         })
         .then(({ name }) => {
-            const query = `INSERT INTO departments (department_name) VALUES ("${name}")`;
+            const query = `INSERT INTO department (department_name) VALUES ("${name}")`;
             server.query(query, (err, res) => {
                 if (err) throw err;
                 console.log(`Added department ${name} to the database!`);
@@ -161,7 +161,7 @@ function addDepartment() {
 
 // Add a role
 function addRole() {
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     server.query(query, (err, res) => {
         if (err) throw err;
         const choices = res.map(({ id, department_name }) => ({
@@ -266,9 +266,9 @@ function addEmployee() {
 
 // Add a manager
 function addManager() {
-    server.query("SELECT * FROM departments", (err, departments) => {
+    server.query("SELECT * FROM department", (err, department) => {
         if (err) throw err;
-        server.query("SELECT * FROM employee", (err, employees) => {
+        server.query("SELECT * FROM employee", (err, employee) => {
             if (err) throw err;
             inquirer
                 .prompt([
@@ -276,7 +276,7 @@ function addManager() {
                         type: "list",
                         name: "department_id",
                         message: "Select the department:",
-                        choices: departments.map(({ id, department_name }) => ({
+                        choices: department.map(({ id, department_name }) => ({
                             name: department_name,
                             value: id,
                         })),
@@ -285,7 +285,7 @@ function addManager() {
                         type: "list",
                         name: "employee_id",
                         message: "Select the employee to add a manager to:",
-                        choices: employees.map(({ id, first_name, last_name }) => ({
+                        choices: employee.map(({ id, first_name, last_name }) => ({
                             name: `${first_name} ${last_name}`,
                             value: id,
                         })),
@@ -294,7 +294,7 @@ function addManager() {
                         type: "list",
                         name: "manager_id",
                         message: "Select the employee's manager:",
-                        choices: employees.map(({ id, first_name, last_name }) => ({
+                        choices: employee.map(({ id, first_name, last_name }) => ({
                             name: `${first_name} ${last_name}`,
                             value: id,
                         })),
@@ -341,7 +341,7 @@ function updateEmployeeRole() {
                         type: "list",
                         name: "employee_id",
                         message: "What employee are you update:",
-                        choices: employees.map(({ id, first_name, last_name }) => ({
+                        choices: employee.map(({ id, first_name, last_name }) => ({
                             name: `${first_name} ${last_name}`,
                             value: id,
                         })),
@@ -383,7 +383,7 @@ function viewEmployeesByManager() {
         INNER JOIN 
             roles r ON e.role_id = r.id
         INNER JOIN 
-            departments d ON r.department_id = d.id
+            department d ON r.department_id = d.id
         LEFT JOIN 
             employee m ON e.manager_id = m.id
         ORDER BY 
@@ -408,8 +408,8 @@ function viewEmployeesByManager() {
         console.log("Employees by manager:");
         for (const managerName in employeesByManager) {
             console.log(`\n${managerName}:`);
-            const employees = employeesByManager[managerName];
-            employees.forEach(({ first_name, last_name, title, department_name }) => {
+            const employee = employeesByManager[managerName];
+            employee.forEach(({ first_name, last_name, title, department_name }) => {
                 console.log(
                     `  ${first_name} ${last_name} | ${title} | ${department_name}`
                 );
@@ -430,9 +430,9 @@ function viewEmployeesByDepartment() {
         INNER JOIN 
             roles ON employee.role_id = roles.id 
         INNER JOIN 
-            departments ON roles.department_id = departments.id 
+            department ON roles.department_id = departments.id 
         ORDER BY 
-            departments.department_name ASC
+            department.department_name ASC
     `;
 
     server.query(query, (err, res) => {
