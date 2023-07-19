@@ -1,4 +1,5 @@
-INSERT INTO departments (department_name)
+use companyData;
+INSERT INTO department (department_name)
 VALUES 
 ('Healer'),
 ('Tank'),
@@ -9,16 +10,16 @@ VALUES
 
 INSERT INTO roles (title, salary, department_id)
 VALUES 
-('Cleric', 555000.00, 1),
-('Paladin', 125000.00, 2),
-('Wizard', 189000.00, 3),
-('Bard', 145000.00, 4),
-('Barbarian', 185000.00, 5),
-('Fighter', 125000.00, 6),
-('Rogue', 75000.00, 7),
-('Sorcerer', 185000.00, 8),
-('Ranger', 95000.00, 9),
-('Monk', 135000.00, 10);
+('Cleric', 100000.00, 1),
+('Paladin', 120000.00, 2),
+('Wizard', 180000.00, 3),
+('Bard', 45000.00, 4),
+('Barbarian', 200000.00, 5),
+('Fighter', 12000.00, 6),
+('Rogue', 70000.00, 7),
+('Sorcerer', 170000.00, 8),
+('Ranger', 90000.00, 9),
+('Monk', 105000.00, 10);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES

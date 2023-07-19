@@ -10,7 +10,7 @@ USE companyData;
 -- Create the department table
 CREATE TABLE department (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    dept_name VARCHAR(50) NOT NULL
+    department_name VARCHAR(50) NOT NULL
 );
 
 -- Create the roles table
