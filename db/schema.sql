@@ -1,14 +1,14 @@
 -- Drop the database if it already exists
-DROP DATABASE IF EXISTS companyData;
+DROP DATABASE IF EXISTS companyData_db;
 
--- Create a new database named companyData
-CREATE DATABASE companyData;
+-- Create a new database named companyData_db
+CREATE DATABASE companyData_db;
 
--- Use the companyData database
-USE companyData;
+-- Use the companyData_db database
+USE companyData_db;
 
--- Create the department table
-CREATE TABLE department (
+-- Create the departments table
+CREATE TABLE departments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     department_name VARCHAR(50) NOT NULL
 );
@@ -19,7 +19,7 @@ CREATE TABLE roles (
     title VARCHAR(50),
     department_id INT,
     salary DECIMAL(10, 2),
-    FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
 );
 
 -- Create the employee table

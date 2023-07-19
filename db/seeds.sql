@@ -1,5 +1,4 @@
-use companyData;
-INSERT INTO department (department_name)
+INSERT INTO departments (department_name)
 VALUES 
 ('Healer'),
 ('Tank'),
