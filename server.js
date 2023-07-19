@@ -20,8 +20,7 @@ server.connect((err) => {
 
 // Initialize the server
 function start() {
-    inquirer
-        .prompt({
+    const answer = inquirer.prompt({
             type: "list",
             name: "action",
             message: "What would you like to do?",
@@ -39,8 +38,9 @@ function start() {
                 "Exit",
             ],
         })
-        .then(({ action }) => {
-            switch (action) {
+        .then((answer) => {
+            console.log("hi")
+            switch (answer.action) {
                 case "View all departments":
                     viewAllDepartments();
                     break;
