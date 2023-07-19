@@ -5,11 +5,18 @@ const inquirer = require('inquirer');
 
 const server = mysql.createConnection({
   host: 'localhost',
-  port: 3001,
-  user: 'root',
-  password: 'Connect',
+  port: 3301,
+  user: 'Network Service',
+  password: 'Iamthebest1993',
   database: 'company_db',
 });
+
+server.connect((err) => {
+  if (err) throw err;
+  console.log('Welcome to the company database!');
+
+  start();
+})
 
 // Initialize the server
 function start() {
@@ -438,4 +445,4 @@ function viewEmployeesByDepartment() {
 
 
 
-start();
+
