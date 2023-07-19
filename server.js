@@ -8,7 +8,7 @@ const server = mysql.createConnection({
   port: 3306,
   user: 'root',
   password: 'Iamthebest1993',
-  database: 'companyData',
+  database: 'companyDatat',
 });
 
 server.connect((err) => {
@@ -20,7 +20,8 @@ server.connect((err) => {
 
 // Initialize the server
 function start() {
-    const answer = inquirer.prompt({
+    inquirer
+        .prompt({
             type: "list",
             name: "action",
             message: "What would you like to do?",
@@ -38,9 +39,8 @@ function start() {
                 "Exit",
             ],
         })
-        .then((answer) => {
-            console.log("hi")
-            switch (answer.action) {
+        .then(({ action }) => {
+            switch (action) {
                 case "View all departments":
                     viewAllDepartments();
                     break;
