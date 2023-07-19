@@ -14,7 +14,7 @@ const server = mysql.createConnection({
 // Initialize the server
 server.connect((err) => {
   if (err) throw err;
-  console.log('Welcome to the company database!');
+  console.log('database!');
   init();
 });
 
