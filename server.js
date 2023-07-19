@@ -12,7 +12,7 @@ const server = mysql.createConnection({
 });
 
 server.connect((err) => {
-  .if (err) throw err;
+  if (err) throw err;
   console.log('Welcome to the company database!');
 
   start();
