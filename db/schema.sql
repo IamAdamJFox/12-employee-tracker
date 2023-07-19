@@ -1,11 +1,11 @@
 -- Drop the database if it already exists
-DROP DATABASE IF EXISTS employeesData;
+DROP DATABASE IF EXISTS companyData;
 
--- Create a new database named employeesData
-CREATE DATABASE employeesData;
+-- Create a new database named companyData
+CREATE DATABASE companyData;
 
--- Use the employeesData database
-USE employeesData;
+-- Use the companyData database
+USE companyData;
 
 -- Create the department table
 CREATE TABLE department (
