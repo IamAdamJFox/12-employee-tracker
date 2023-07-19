@@ -5,7 +5,7 @@ const inquirer = require('inquirer');
 
 const server = mysql.createConnection({
   host: 'localhost',
-  port: 3001,
+  port: 3306,
   user: 'root',
   password: 'Iamthebest1993',
   database: 'company_db',
@@ -36,8 +36,6 @@ function start() {
                 "Update an employee's role",
                 "View employees by manager",
                 "View employees by department",
-                "Delete department, role, or employee",
-                "View total utilized budget of a department",
                 "Exit",
             ],
         })
