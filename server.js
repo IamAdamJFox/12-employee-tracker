@@ -84,7 +84,7 @@ function start() {
 function viewAllDepartments() {
     console.log("inside viewALLDepartments")
 
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     server.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
@@ -98,14 +98,14 @@ function viewAllRoles() {
         SELECT 
             role.title, 
             role.id, 
-            departments.department_name, 
+            department.department_name, 
             role.salary 
         FROM 
             role 
         JOIN 
-            departments 
+            department
         ON 
-            role.department_id = departments.id
+            role.department_id = department.id
     `;
     server.query(query, (err, res) => {
         if (err) throw err;
@@ -130,7 +130,7 @@ function viewAllEmployees() {
         LEFT JOIN 
             role r ON e.role_id = r.id
         LEFT JOIN 
-            departments d ON r.department_id = d.id
+            department d ON r.department_id = d.id
         LEFT JOIN 
             employee m ON e.manager_id = m.id;
     `;
@@ -150,7 +150,7 @@ function addDepartment() {
             message: "Enter the name of the new department:",
         })
         .then(({ name }) => {
-            const query = `INSERT INTO departments (department_name) VALUES ("${name}")`;
+            const query = `INSERT INTO department (department_name) VALUES ("${name}")`;
             server.query(query, (err, res) => {
                 if (err) throw err;
                 console.log(`Added department ${name}`);
@@ -161,7 +161,7 @@ function addDepartment() {
 
 // Add a role
 function addRole() {
-    const query = "SELECT * FROM departments";
+    const query = "SELECT * FROM department";
     server.query(query, (err, res) => {
         if (err) throw err;
         const choices = res.map(({ id, department_name }) => ({
@@ -266,7 +266,7 @@ function addEmployee() {
 
 // Add a manager
 function addManager() {
-    server.query("SELECT * FROM departments", (err, department) => {
+    server.query("SELECT * FROM department", (err, department) => {
         if (err) throw err;
         server.query("SELECT * FROM employee", (err, employee) => {
             if (err) throw err;
@@ -276,7 +276,7 @@ function addManager() {
                         type: "list",
                         name: "department_id",
                         message: "Select the department:",
-                        choices: departments.map(({ id, department_name }) => ({
+                        choices: department.map(({ id, department_name }) => ({
                             name: department_name,
                             value: id,
                         })),
@@ -383,7 +383,7 @@ function viewEmployeesByManager() {
         INNER JOIN 
             role r ON e.role_id = r.id
         INNER JOIN 
-            departmens d ON r.department_id = d.id
+            department d ON r.department_id = d.id
         LEFT JOIN 
             employee m ON e.manager_id = m.id
         ORDER BY 
@@ -422,7 +422,7 @@ function viewEmployeesByManager() {
 function viewEmployeesByDepartment() {
     const query = `
         SELECT 
-            departments.department_name, 
+            department.department_name, 
             employee.first_name, 
             employee.last_name 
         FROM 
@@ -430,7 +430,7 @@ function viewEmployeesByDepartment() {
         INNER JOIN 
             role ON employee.role_id = role.id 
         INNER JOIN 
-            departments ON role.department_id = department.id 
+            department ON role.department_id = department.id 
         ORDER BY 
             department.department_name ASC
     `;
@@ -447,4 +447,3 @@ function viewEmployeesByDepartment() {
 
 
 
-start();
