@@ -7,18 +7,18 @@ VALUES
 ('Flanker'),
 ('Moral Support');
 
-INSERT INTO roles(title, salary, department_id)
+INSERT INTO role(title, salary, department_id)
 VALUES 
 ('Cleric', 100000.00, 1),
 ('Paladin', 120000.00, 2),
-('Wizard', 180000.00, 3),
-('Bard', 45000.00, 4),
-('Barbarian', 200000.00, 5),
-('Fighter', 12000.00, 6),
-('Rogue', 70000.00, 7),
-('Sorcerer', 170000.00, 8),
-('Ranger', 90000.00, 9),
-('Monk', 105000.00, 10);
+('Wizard', 180000.00, 4),
+('Bard', 45000.00, 6),
+('Barbarian', 200000.00, 2),
+('Fighter', 12000.00, 3),
+('Rogue', 70000.00, 6),
+('Sorcerer', 170000.00, 4),
+('Ranger', 90000.00, 5),
+('Monk', 105000.00, 5);
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
