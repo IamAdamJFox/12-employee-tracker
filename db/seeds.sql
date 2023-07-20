@@ -1,4 +1,4 @@
-INSERT INTO departments (department_name)
+INSERT INTO department(department_name)
 VALUES 
 ('Healer'),
 ('Tank'),
@@ -7,7 +7,7 @@ VALUES
 ('Flanker'),
 ('Moral Support');
 
-INSERT INTO roles (title, salary, department_id)
+INSERT INTO roles(title, salary, department_id)
 VALUES 
 ('Cleric', 100000.00, 1),
 ('Paladin', 120000.00, 2),
@@ -20,7 +20,7 @@ VALUES
 ('Ranger', 90000.00, 9),
 ('Monk', 105000.00, 10);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
 ('Ezekiel', 'Swampstride', 1, 1),
 ('Rogal', 'Dorn', 2, 2),

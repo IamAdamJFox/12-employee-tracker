@@ -96,16 +96,16 @@ function viewAllDepartments() {
 function viewAllRoles() {
     const query = `
         SELECT 
-            roles.title, 
-            roles.id, 
+            role.title, 
+            role.id, 
             departments.department_name, 
-            roles.salary 
+            role.salary 
         FROM 
-            roles 
+            role 
         JOIN 
             departments 
         ON 
-            roles.department_id = departments.id
+            role.department_id = departments.id
     `;
     server.query(query, (err, res) => {
         if (err) throw err;
@@ -128,7 +128,7 @@ function viewAllEmployees() {
         FROM 
             employee e
         LEFT JOIN 
-            roles r ON e.role_id = r.id
+            role r ON e.role_id = r.id
         LEFT JOIN 
             departments d ON r.department_id = d.id
         LEFT JOIN 
@@ -189,7 +189,7 @@ function addRole() {
             ])
             .then(({ title, salary, department_id }) => {
                 const query =
-                    "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)";
+                    "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
                 const values = [title, salary, department_id];
                 server.query(query, values, (err, res) => {
                     if (err) throw err;
@@ -204,9 +204,9 @@ function addRole() {
 
 // Add an employee
 function addEmployee() {
-    server.query("SELECT * FROM roles", (error, results) => {
+    server.query("SELECT * FROM role", (error, results) => {
         if (error) throw error;
-        const roles = results.map(({ id, title }) => ({
+        const role = results.map(({ id, title }) => ({
             name: title,
             value: id,
         }));
@@ -234,7 +234,7 @@ function addEmployee() {
                         type: "list",
                         name: "role_id",
                         message: "What is employee's role:",
-                        choices: roles,
+                        choices: role,
                     },
                     {
                         type: "list",
@@ -312,7 +312,7 @@ function addManager() {
                                 SELECT 
                                     id 
                                 FROM 
-                                    roles 
+                                    role 
                                 WHERE 
                                     department_id = ?
                             )
@@ -333,7 +333,7 @@ function addManager() {
 function updateEmployeeRole() {
     server.query("SELECT * FROM employee", (err, employee) => {
         if (err) throw err;
-        server.query("SELECT * FROM roles", (err, roles) => {
+        server.query("SELECT * FROM role", (err, role) => {
             if (err) throw err;
             inquirer
                 .prompt([
@@ -350,7 +350,7 @@ function updateEmployeeRole() {
                         type: "list",
                         name: "role_id",
                         message: "What is thier new role:",
-                        choices: roles.map(({ id, title }) => ({
+                        choices: role.map(({ id, title }) => ({
                             name: title,
                             value: id,
                         })),
@@ -381,7 +381,7 @@ function viewEmployeesByManager() {
         FROM 
             employee e
         INNER JOIN 
-            roles r ON e.role_id = r.id
+            role r ON e.role_id = r.id
         INNER JOIN 
             departmens d ON r.department_id = d.id
         LEFT JOIN 
@@ -428,9 +428,9 @@ function viewEmployeesByDepartment() {
         FROM 
             employee 
         INNER JOIN 
-            roles ON employee.role_id = roles.id 
+            role ON employee.role_id = role.id 
         INNER JOIN 
-            departments ON roles.department_id = departments.id 
+            departments ON role.department_id = department.id 
         ORDER BY 
             department.department_name ASC
     `;
