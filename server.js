@@ -213,7 +213,7 @@ function addEmployee() {
 
         server.query("SELECT * FROM employee", (error, results) => {
             if (error) throw error;
-            const employees = results.map(({ id, first_name, last_name }) => ({
+            const employee = results.map(({ id, first_name, last_name }) => ({
                 name: `${first_name} ${last_name}`,
                 value: id,
             }));
@@ -242,7 +242,7 @@ function addEmployee() {
                         message: "What is employee's manager:",
                         choices: [
                             { name: "None", value: null },
-                            ...employees,
+                            ...employee,
                         ],
                     },
                 ])
@@ -331,7 +331,7 @@ function addManager() {
 
 // Update an employee's role
 function updateEmployeeRole() {
-    server.query("SELECT * FROM employee", (err, employees) => {
+    server.query("SELECT * FROM employee", (err, employee) => {
         if (err) throw err;
         server.query("SELECT * FROM roles", (err, roles) => {
             if (err) throw err;

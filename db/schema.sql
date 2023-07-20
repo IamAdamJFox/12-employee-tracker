@@ -7,28 +7,28 @@ CREATE DATABASE companyData_db;
 -- Use the companyData_db database
 USE companyData_db;
 
--- Create the departments table
-CREATE TABLE departments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    department_name VARCHAR(50) NOT NULL
+CREATE TABLE department (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+department_name VARCHAR(255) NOT NULL
 );
 
--- Create the roles table
 CREATE TABLE roles (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(50),
-    department_id INT,
-    salary DECIMAL(10, 2),
-    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(255),
+salary DECIMAL(10,2),
+department_id INT,
+FOREIGN KEY (department_id)
+REFERENCES departments(id)
+ON DELETE SET NULL
 );
 
--- Create the employee table
 CREATE TABLE employee (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    role_id INT,
-    manager_id INT,
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL,
-    FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+first_name VARCHAR(30) NOT NULL,
+last_name VARCHAR(30) NOT NULL,
+role_id INT,
+manager_id INT NOT NULL
+FOREIGN KEY(role_id)
+REFERENCES roles(id)
+ON DELETE SET NULL
 );
