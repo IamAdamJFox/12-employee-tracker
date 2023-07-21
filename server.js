@@ -2,7 +2,7 @@
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 
-
+// Creates mysql connection
 const server = mysql.createConnection({
   host: 'localhost',
   port: 3306,
@@ -11,6 +11,7 @@ const server = mysql.createConnection({
   database: 'companyData_db',
 });
 
+// Connects to the database
 server.connect((err) => {
   if (err) throw err;
   console.log('Welcome to the company database!');
@@ -18,7 +19,7 @@ server.connect((err) => {
   start();
 })
 
-// Initialize the server
+// Initialize the application as well as sets the choices to interact with data
 function start() {
        inquirer
         .prompt({
@@ -369,6 +370,7 @@ function updateEmployeeRole() {
         });
     });
 }
+//Views employees by manager
 function viewEmployeesByManager() {
     const query = `
         SELECT 
@@ -418,7 +420,7 @@ function viewEmployeesByManager() {
         start();
     });
 }
-
+//View Employees by department
 function viewEmployeesByDepartment() {
     const query = `
         SELECT 
